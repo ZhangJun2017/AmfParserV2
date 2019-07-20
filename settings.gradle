@@ -1,0 +1,4 @@
+rootProject.name = 'AmfParser'
+include 'amfparser-common'
+include 'amfparser-parser'
+
