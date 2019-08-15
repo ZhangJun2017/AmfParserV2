@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'io.zhangjun2017.amfparser'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+
+    mavenLocal()
+}
+
+dependencies {
+    compile('io.zhangjun2017.amfparser:amfparser-common:+')
+}
