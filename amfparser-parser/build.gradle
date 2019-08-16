@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven'
 }
 
 group 'io.zhangjun2017.amfparser'
@@ -8,8 +9,22 @@ version '1.0.0'
 sourceCompatibility = 1.8
 
 repositories {
-
     mavenLocal()
+}
+
+def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: localMavenRepo)
+            pom.project {
+                name = project.name
+                packaging = 'jar'
+                description = 'description'
+            }
+        }
+    }
 }
 
 dependencies {

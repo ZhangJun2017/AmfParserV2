@@ -3,13 +3,19 @@ plugins {
     id 'maven'
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'xml-apis:xml-apis:1.0.b2'
+    }
+}
+
 group 'io.zhangjun2017.amfparser'
 version '1.0.1'
 
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    //mavenCentral()
     mavenLocal()
 }
 
@@ -19,16 +25,15 @@ uploadArchives {
     repositories {
         mavenDeployer {
             repository(url: localMavenRepo)
-
             pom.project {
                 name = project.name
                 packaging = 'jar'
                 description = 'description'
             }
         }
-
     }
 }
 
 dependencies {
+    compile group: 'org.apache.flex.blazeds', name: 'flex-messaging-core', version: '4.7.3'
 }

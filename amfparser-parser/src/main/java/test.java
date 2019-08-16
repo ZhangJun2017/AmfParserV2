@@ -1,3 +1,6 @@
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
+import flex.messaging.io.amf.client.exceptions.ServerStatusException;
+
 /**
  * amfparser-parser/test.java
  * Description:
@@ -7,7 +10,7 @@
  */
 
 public class test {
-    public static void main(String[] args){
+    public static void main(String[] args) throws ServerStatusException, ClientStatusException {
         tobacall.callme();
     }
 }
