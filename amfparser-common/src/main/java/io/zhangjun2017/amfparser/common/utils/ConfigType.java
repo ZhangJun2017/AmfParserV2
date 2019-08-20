@@ -1,5 +1,3 @@
-package io.zhangjun2017.amfparser.common.utils;
-
 /**
  * amfparser-common/ConfigType.java
  * Description:
@@ -8,8 +6,11 @@ package io.zhangjun2017.amfparser.common.utils;
  * @date:2019/8/16
  */
 
+package io.zhangjun2017.amfparser.common.utils;
+
+@Deprecated
 public enum ConfigType {
-    STRING(), INT();
+    STRING(), INT(), NULL();
 
     public static boolean isBelongTo(Object toCheck, ConfigType which) {
         if (which == STRING) {

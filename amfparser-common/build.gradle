@@ -10,7 +10,7 @@ configurations.all {
 }
 
 group 'io.zhangjun2017.amfparser'
-version '1.0.1'
+version '1.0.2'
 
 sourceCompatibility = 1.8
 
