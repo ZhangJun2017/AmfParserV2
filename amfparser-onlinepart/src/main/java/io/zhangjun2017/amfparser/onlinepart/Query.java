@@ -9,5 +9,5 @@ package io.zhangjun2017.amfparser.onlinepart;
  */
 
 public class Query {
-    public Query()
+
 }
