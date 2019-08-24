@@ -1,4 +1,6 @@
-import io.zhangjun2017.amfparser.common.Status;
+import io.zhangjun2017.amfparser.common.StatusException;
+import io.zhangjun2017.amfparser.common.utils.Tools;
+
 
 /**
  * demo/Main.java
@@ -10,6 +12,15 @@ import io.zhangjun2017.amfparser.common.Status;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new Status(123, "456"));
+        try {
+            System.err.println(Tools.parseJson(new ConsoleInterface().httpGet(Tools.parseJson(new ConsoleInterface().httpGet(Value.gitee_main_config)).get("prefix").getAsString() + Value.main_suffix)).get("eachVersionConfigServer").getAsString());
+        } catch (StatusException e) {
+            new ConsoleInterface().throwException(e);
+        }
     }
+}
+
+class Value {
+    final static String gitee_main_config = "https://gitee.com/bugit/API-for-AmfParserV2/raw/master/api/config.json";
+    final static String main_suffix = "config.json";
 }

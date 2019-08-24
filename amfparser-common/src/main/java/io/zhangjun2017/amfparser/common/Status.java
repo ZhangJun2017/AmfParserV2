@@ -12,6 +12,7 @@ public class Status {
     private int code;
     private String msg;
     private Object extra = null;
+    private StatusException whatHappening = null;
 
     public Status() {
     }
@@ -42,4 +43,14 @@ public class Status {
         this.extra = extra;
         return this;
     }
+
+
+    /*public StatusException getException() {
+        return whatHappening;
+    }
+
+    public Status setException(StatusException e) {
+        this.whatHappening = e;
+        return this;
+    }*/
 }

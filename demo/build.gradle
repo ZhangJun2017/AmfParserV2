@@ -37,4 +37,5 @@ dependencies {
     compile('io.zhangjun2017.amfparser:amfparser-common:+')
     compile('io.zhangjun2017.amfparser:amfparser-parser:+')
     compile('io.zhangjun2017.amfparser:amfparser-onlinepart:+')
+    compile('com.squareup.okhttp3:okhttp:4.1.0')
 }

@@ -1,0 +1,17 @@
+Deprecated!!!
+
+
+Here is the identity of the return code from:
+
+------CallableAsInterface-[httpGet] and [amfGet].
+ code| msg|                          extra|             description
+    0|null| the content of server's return|    nothing bad happened
+   -1|null|the exception 'okhttp' returned|  something bad happened
+   -2|null|       the code server returned|server didn't return 200
+
+
+------Tools-[parseJson]
+ code| msg|                              extra|                       description
+    0|null|the 'JsonObject' returned from Gson|              nothing bad happened
+   -1|null|      the exception 'Gson' returned|json is invalid or other exception
+   -2|null|                 JsonObject is null|
