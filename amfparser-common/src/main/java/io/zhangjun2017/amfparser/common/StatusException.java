@@ -9,10 +9,26 @@
 package io.zhangjun2017.amfparser.common;
 
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+/**
+ * How to throw this kind of Exception:
+ * System.err.println("[" + e.getErrCode() + ":" + e.getUserFriendlyMsg() + "]\n" + e.getMsg());
+ */
 public class StatusException extends Exception {
     private int errCode;
     private String userFriendlyMsg;
     private String msg;
+
+    public static void main(String[] args) {
+        try {
+            URL url = new URL("123");
+        } catch (MalformedURLException e) {
+            StatusException statusException = new StatusException(233, "bugrighthere!", e.toString());
+            System.out.println(e);
+        }
+    }
 
     public StatusException(int errCode, String userFriendlyMsg, String msg) {
         super(msg);
@@ -31,5 +47,10 @@ public class StatusException extends Exception {
 
     public String getMsg() {
         return msg;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.getErrCode() + ":" + this.getUserFriendlyMsg() + "]" + this.getMsg();
     }
 }

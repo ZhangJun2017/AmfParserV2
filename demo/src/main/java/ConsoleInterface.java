@@ -1,11 +1,16 @@
+import flex.messaging.io.ArrayCollection;
+import flex.messaging.io.amf.ASObject;
+import flex.messaging.io.amf.client.AMFConnection;
+import flex.messaging.io.amf.client.exceptions.ClientStatusException;
+import flex.messaging.io.amf.client.exceptions.ServerStatusException;
 import io.zhangjun2017.amfparser.common.CallableAsInterface;
+import io.zhangjun2017.amfparser.common.Config;
 import io.zhangjun2017.amfparser.common.Status;
 import io.zhangjun2017.amfparser.common.StatusException;
+import io.zhangjun2017.amfparser.common.utils.Tools;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import java.io.IOException;
 
 /**
  * demo/
@@ -16,9 +21,13 @@ import java.io.IOException;
  */
 
 public class ConsoleInterface implements CallableAsInterface {
+    public static void main(String[] args) throws StatusException {
+        new ConsoleInterface().amfGet(new Config(new ConsoleInterface()).put("url", "http://etreport.iclassmate.cn:8082/SchoolCenter/messagebroker/amf").put("command", "multiExamServiceNew.getAllStudentMultiExam").put("args", new Object[]{19868, "21812140", "token right here,just for debug,do not ban me!"}));
+    }
+
     @Override
     public void output(String s) {
-        System.out.println(s);
+        System.out.print("\n" + s);
     }
 
     @Override
@@ -33,7 +42,6 @@ public class ConsoleInterface implements CallableAsInterface {
 
     @Override
     public Status rawHttpGet(String url) throws StatusException {
-        Status toBeReturn = new Status();
         try {
             Response response = new OkHttpClient().newCall(new Request.Builder().url(url).build()).execute();
             return new Status().setStatusCode(response.code()).setStatusMsg(response.body().string());
@@ -56,15 +64,40 @@ public class ConsoleInterface implements CallableAsInterface {
     }
 
     @Override
-    public Status amfGet(String url) {
+    public Status amfGet(Config config) throws StatusException {
+        try {
+            AMFConnection amfConnection = new AMFConnection();
+            amfConnection.connect(config.get("url").toString());
+            ArrayCollection theLastExam1 = ((ArrayCollection) amfConnection.call(config.get("command").toString(), (Object[]) config.get("args")));
+            if (theLastExam1.size() == 0) {
+                throw new StatusException(-3, "Server return null.", "No more details.");
+            }
+            ASObject theLastExam = (ASObject) theLastExam1.get(0);
+            System.out.println(theLastExam);
+        } catch (ClientStatusException e) {
+            throw new StatusException(-1, "Something bad happened.", e.toString());
+        } catch (ServerStatusException e) {
+            throw new StatusException(-2, "Something bad happened.", e.toString());
+        }
         return null;
     }
 
     @Override
     public void throwException(StatusException e) {
         //DEBUG MODE ON
-        //RELEASE:System.err.println("[" + e.getUserFriendlyMsg() + "]\n" + e.getMsg());
+        //RELEASE:System.err.println("[" + e.getErrCode + ":" + e.getUserFriendlyMsg() + "]\n" + e.getMsg());
         //DEBUG:
         e.printStackTrace();
     }
+
+    @Override
+    public String demo(CallableAsInterface mInterface) throws StatusException {
+        return Tools.parseJson(mInterface.httpGet(Tools.parseJson(mInterface.httpGet(Value.gitee_main_config)).get("prefix").getAsString() + Value.main_suffix)).get("eachVersionConfigServer").getAsString();
+    }
+
+    @Override
+    public void demo2(CallableAsInterface callableAsInterface) throws StatusException {
+        System.err.println(callableAsInterface.httpGet(callableAsInterface.demo(callableAsInterface)));
+    }
+
 }

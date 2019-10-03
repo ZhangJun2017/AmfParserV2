@@ -22,7 +22,22 @@ public interface CallableAsInterface {
 
     Status rawHttpGet(String url) throws StatusException;
 
-    Status amfGet(String url);
+    /**
+     *
+     * @param config ->
+     *                 { url:the url to be called
+     *                   command:the command defined by amf
+     *                   args:the Object[] to be passed to the server
+     *                   handler:the interface that can operate
+     *                 }
+     *
+     * @return a Status with code and a HashMap decoded by adobe's library
+     */
+    Status amfGet(Config config) throws StatusException;
 
     void throwException(StatusException e);
+
+    String demo(CallableAsInterface mInterface) throws StatusException;
+
+    void demo2(CallableAsInterface mInterface) throws StatusException;
 }

@@ -12,25 +12,32 @@ import java.util.HashMap;
 
 public class Config {
     private HashMap<String, Object> configMap = new HashMap<>();
-    CallableAsInterface opInterface;
+    CallableAsInterface handle;
 
-    public Config(CallableAsInterface opInterface) {
-        this.opInterface=opInterface;
+    public Config(CallableAsInterface handle) {
+        this.handle = handle;
     }
 
     public Config() {
-
     }
 
-    public Object get(String key) {
-        return configMap.getOrDefault(key, "数据为空");
+    public Object get(String key) throws StatusException {
+        if (configMap.get(key) == null) {
+            throw new StatusException(1, "数据为空", "No further details.");
+        }
+        return configMap.get(key);
     }
 
     public Config put(String key, Object obj) {
         configMap.put(key, obj);
         return this;
     }
-    public void test(){
-        opInterface.output("test");
+
+    public CallableAsInterface getHandle() {
+        return handle;
+    }
+
+    public void test() {
+        handle.output("test");
     }
 }
