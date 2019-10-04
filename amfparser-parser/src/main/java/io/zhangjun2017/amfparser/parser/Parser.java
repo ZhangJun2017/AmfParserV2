@@ -14,9 +14,10 @@ import io.zhangjun2017.amfparser.common.StatusException;
 
 import java.util.ArrayList;
 
+
 public class Parser {
     private Config originConfig;
-    private Config baseInfo = new Config();  //will it be useful in the future?
+    private Config baseInfo = new Config();  //maybe this class won't have base info?
     private ArrayCollection examsCollection;
     private ArrayList<Exam> examArrayList = new ArrayList();
 
@@ -34,12 +35,15 @@ public class Parser {
         String exceptionMsg1 = "获取所有考试数据时出错，因为\n%s";
         String exceptionMsg2 = "在解析第 %d 次考试时出错，因为\n%s";
         int i = 0;
+
+        //Put every exam into temp
         try {
             examsCollection = (ArrayCollection) config.get("data");  //data may cannot be cast
         } catch (StatusException e) {
             throw new ParseException(String.format(exceptionMsg1, e.toString()));
         }
 
+        //Ask Exam to parse each exam
         try {
             for (i = 0; i < examsCollection.size(); i++) {
                 examArrayList.add(new Exam(new Config().put("data", examsCollection.get(i))));
