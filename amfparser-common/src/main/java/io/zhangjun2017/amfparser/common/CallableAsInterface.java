@@ -31,9 +31,9 @@ public interface CallableAsInterface {
      *                   handler:the interface that can operate
      *                 }
      *
-     * @return a Status with code and a HashMap decoded by adobe's library
+     * @return a Config contents "data" -> (ArrayCollection) or (ASObject)
      */
-    Status amfGet(Config config) throws StatusException;
+    Config amfGet(Config config) throws StatusException;
 
     void throwException(StatusException e);
 

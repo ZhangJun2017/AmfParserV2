@@ -64,22 +64,20 @@ public class ConsoleInterface implements CallableAsInterface {
     }
 
     @Override
-    public Status amfGet(Config config) throws StatusException {
+    public Config amfGet(Config config) throws StatusException {
         try {
             AMFConnection amfConnection = new AMFConnection();
             amfConnection.connect(config.get("url").toString());
-            ArrayCollection theLastExam1 = ((ArrayCollection) amfConnection.call(config.get("command").toString(), (Object[]) config.get("args")));
-            if (theLastExam1.size() == 0) {
+            ArrayCollection root = ((ArrayCollection) amfConnection.call(config.get("command").toString(), (Object[]) config.get("args")));
+            if (root.size() == 0) {
                 throw new StatusException(-3, "Server return null.", "No more details.");
             }
-            ASObject theLastExam = (ASObject) theLastExam1.get(0);
-            System.out.println(theLastExam);
+            return new Config().put("data",root);
         } catch (ClientStatusException e) {
             throw new StatusException(-1, "Something bad happened.", e.toString());
         } catch (ServerStatusException e) {
             throw new StatusException(-2, "Something bad happened.", e.toString());
         }
-        return null;
     }
 
     @Override
