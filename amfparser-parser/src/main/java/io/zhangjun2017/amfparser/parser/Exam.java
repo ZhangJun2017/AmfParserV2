@@ -40,6 +40,11 @@ public class Exam extends BaseUnit {
 
     public Exam(Config config) throws ParseException {
         super(config);
+    }
+
+    @Override
+    protected BaseUnit init(Config config) throws ParseException {
+        String exceptionMsg = "在初始化时出现问题，因为：\n%s";
         try {
             origin = (ASObject) config.get("data");
             seStudentScoreList = (ArrayCollection) new Config().put("data", origin.get("seStudentScoreList")).get("data");  //Being so complex is because Config.get() can throw a StatusException if the data is null
@@ -47,8 +52,9 @@ public class Exam extends BaseUnit {
             singleExams = (ArrayCollection) new Config().put("data", origin.get("singleExams")).get("data");
             meStudentScore = (ASObject) new Config().put("data", origin.get("meStudentScore")).get("data");
         } catch (StatusException e) {
-            throw new ParseException(e.toString());
+            throw new ParseException(String.format(exceptionMsg, e.toString()));
         }
+        return this;
     }
 
     @Override

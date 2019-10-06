@@ -41,12 +41,18 @@ public class Subject extends BaseUnit {
 
     public Subject(Config config) throws ParseException {
         super(config);
+    }
+
+    @Override
+    protected BaseUnit init(Config config) throws ParseException {
+        String exceptionMsg = "在初始化时出现问题，因为：\n%s";
         try {
             originSingleExams = (ASObject) config.get("data1");
             originSeStudentScoreList = (ASObject) config.get("data2");
         } catch (StatusException e) {
-            throw new ParseException(e.toString());
+            throw new ParseException(String.format(exceptionMsg, e.toString()));
         }
+        return this;
     }
 
     @Override

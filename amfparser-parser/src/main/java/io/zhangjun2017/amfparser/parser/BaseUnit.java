@@ -17,10 +17,12 @@ public abstract class BaseUnit {
 
     public BaseUnit(Config config) throws ParseException {
         originConfig = config;
+        init(config);
         parse();
     }
 
     protected abstract BaseUnit parse() throws ParseException;
+    protected abstract BaseUnit init(Config config) throws ParseException;
 
     public String getRaw() throws ParseException {
         try {

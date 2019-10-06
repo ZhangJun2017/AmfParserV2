@@ -30,7 +30,7 @@ public class Main {
         stu.put("url", "http://etreport.iclassmate.cn:8081/SchoolCenter/messagebroker/amf").put("command", "multiExamServiceNew.getAllStudentMultiExam").put("args", new Object[]{19868, "21812140", "token right here,just for debug,do not ban me!"});
         Config result = consoleInterface.amfGet(stu);
         Parser parser = new Parser(result);
-        System.out.println(parser.getExamWithId(0).getRaw());
+        System.out.println(parser.getExamWithId(0).baseInfo.toString());
         //new Parser(new Config().put("data",new ConsoleInterface().amfGet(new Config().put("url", "http://etreport.iclassmate.cn:8082/SchoolCenter/messagebroker/amf").put("command", "multiExamServiceNew.getAllStudentMultiExam").put("args", new Object[]{19868, "21812140", "token right here,just for debug,do not ban me!"})))).getExamWithId(0).getRaw();
     }
 }

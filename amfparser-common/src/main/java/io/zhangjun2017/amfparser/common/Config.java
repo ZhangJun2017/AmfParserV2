@@ -8,7 +8,9 @@
 
 package io.zhangjun2017.amfparser.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Config {
     private HashMap<String, Object> configMap = new HashMap<>();
@@ -39,5 +41,12 @@ public class Config {
 
     public void test() {
         handle.output("test");
+    }
+
+    @Override
+    public String toString() {
+        ArrayList toReturn = new ArrayList();
+        configMap.forEach((a, b) -> toReturn.add(a + " -> " + b + "\n"));
+        return toReturn.toString();
     }
 }
